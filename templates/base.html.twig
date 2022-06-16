@@ -7,7 +7,7 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {# the CSS file lives at "public/css/blog.css" #}
-        <link href="{{ absolute_url('assets/bootstrap-5.2.0/css/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ absolute_url('/assets/bootstrap-5.2.0/css/bootstrap.min.css') }}" rel="stylesheet"/>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -23,10 +23,11 @@
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="{{ absolute_url('/') }}" class="nav-link px-2 link-secondary">Accueil</a></li>
                         {% if app.user %}
-                            <li><a href="{{ path('app_user') }}" class="nav-link px-2 link-dark">Liste des utilisateurs</a></li>
-                            <li><a href="{{ path('app_user') }}" class="nav-link px-2 link-dark">Mes annonces</a></li>
+                            <li><a href="{{ path('app_user') }}" class="nav-link px-2 link-dark">Les vendeurs</a></li>
+                            <li><a href="{{ path('app_user_profile', { id: app.user.id }) }}" class="nav-link px-2 link-dark">Mes annonces</a></li>
+                            <li><a href="{{ path('app_annonce_new') }}" class="nav-link px-2 link-dark">Nouvelle annonce</a></li>
                         {% else %}
-                            <a href="{{ path('app_user') }}">Toutes les annonces</a>
+                            <li><a href="{{ path('app_annonce_index') }}" class="nav-link px-2 link-dark">Toutes les annonces</a></li>
                         {% endif %}
                     </ul>
 
@@ -35,7 +36,7 @@
                     </form>
 
                     {% if app.user %}
-                        <div class="dropdown text-end">
+                        {# <div class="dropdown text-end">
                             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                             </a>
@@ -46,19 +47,23 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">Sign out</a></li>
                             </ul>
-                        </div>
+                        </div> #}
+                        <a href="{{ path('app_user_show') }}" class="nav-link px-2 link-dark">Mon compte</a>
                     {% else %}
-                        <a href="{{ path('app_login') }}">Me connecter</a>
+                        <a href="{{ path('app_login') }}" class="nav-link px-2 link-dark">Me connecter</a>
                     {% endif %}
                 </div>
             </div>
         </header>
-        {% block body %}{% endblock %}
+        <main class="container">
+            {{ include('error/_flashes.html.twig') }}
+            {% block body %}{% endblock %}
+        </main>
         <footer>
             Footer
         </footer>
         {# the JS file lives at "public/bundles/acme/js/loader.js" #}
-        <script src="{{ absolute_url('assets/bootstrap-5.2.0/js/bootstrap.min.js') }}"></script>
+        <script src="{{ absolute_url('/assets/bootstrap-5.2.0/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}

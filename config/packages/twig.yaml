@@ -1,5 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        upload_path: '%upload_path%'
+        file_public_path: '/upload/'
 
 when@test:
     twig:

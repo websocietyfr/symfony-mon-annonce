@@ -3,35 +3,47 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Liste de tous les vendeurs sur MonAnnonce</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.email }}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan=3>Il n'y a pas de vendeurs disponibles</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+    <section class="row">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_index') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Les vendeurs</li>
+            </ol>
+        </nav>
+    </section>
+    <section class="row">
+        <div class="col-12">
+            <h1>Tous les vendeurs sur MonAnnonce</h1>
+        </div>
+        {% for user in users %}
+            <div class="col-xs-12 col-md-4">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="..." class="img-fluid rounded-start" alt="..." />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                        <h5 class="card-title">
+                            {{ user.firstname }} {{ user.lastname }}
+                        </h5>
+                        <p class="card-text">
+                            {{ user.email }}<br />
+                            {{ user.phonenumber }}<br />
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">{{ user.annonces|length }} Annonces</small>
+                        </p>
+                        <p>
+                            <a href="{{ path('app_user_profile', { id: user.id }) }}" class="btn btn-info">Accéder au profil</a>
+                        </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="alert alert-info">Il n'y a pas de vendeurs disponibles</p>
+        {% endfor %}
+    </section>
 {% endblock %}

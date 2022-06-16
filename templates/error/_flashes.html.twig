@@ -1,0 +1,7 @@
+{% if app.flashes %}
+    {% for status, message in app.flashes %}
+        <p class="alert alert-{{ status }}">
+            {{ message }}
+        </p>
+    {% endfor %}
+{% endif %}

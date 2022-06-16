@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="row">
+        {# {{ form_widget(form) }} #}
+        <form action="{{ form.vars.action }}" method="{{ form.vars.method }}" enctype="multipart/form-data">
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="row mb-3">
+                <div class="mb-3">
+                    {{ form_row(form.firstname, {
+                        'label': 'Prénom:',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.lastname, 'Nom:', {'attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.email, {
+                        'label': 'Email:',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.phone_number, {
+                        'label': 'Numéro de téléphone:',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.profil_picture, {
+                        'label': 'Photo de profil:',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+                {{ form_widget(form._token) }}
+            </div>
+
+            <button class="btn btn-success">Enregistrer les modifications</button>
+        </form>
+    </section>
+{% endblock %}

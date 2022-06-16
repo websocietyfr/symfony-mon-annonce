@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class UserType extends AbstractType
+class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -23,7 +23,7 @@ class UserType extends AbstractType
             ->add('profil_picture', FileType::class, [
                 'data_class' => null,
                 'label' => 'Photo de profil:',
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '2048k',
@@ -35,6 +35,9 @@ class UserType extends AbstractType
                         'mimeTypesMessage' => 'Merci d\'envoyer une image au format JPG ou PNG',
                     ])
                 ]
+            ])
+            ->add('password', PasswordType::class, [
+                'required' => false
             ])
             ->add('save', SubmitType::class)
         ;

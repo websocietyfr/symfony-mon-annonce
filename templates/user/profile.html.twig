@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <section class="row">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{{ path('app_index') }}">Accueil</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{{ path('app_user') }}">Les vendeurs</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ user.firstname }} {{ user.lastname }}
+        </li>
+      </ol>
+    </nav>
+  </section>
+  <section class="row">
+    <div class="col-xs-12 col-md-4">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="..." class="img-fluid rounded-start" alt="..." />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ user.firstname }} {{ user.lastname }}
+              </h5>
+              <p class="card-text">
+                {{ user.email }}<br />
+                {{ user.phonenumber }}<br />
+              </p>
+              <p class="card-text">
+                <small class="text-muted">{{ user.annonces|length }} Annonces</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-8">
+      {% for annonce in user.annonces|reverse %}
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-3">
+              <img src="{{ absolute_url(file_public_path ~ annonce.picture) }}"
+                class="img-fluid rounded-start"
+                alt="annonce picture" />
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ annonce.title }}
+                </h5>
+                <p class="card-text">
+                  {{ annonce.description }}
+                </p>
+                <p class="card-text">
+                  {% if app.user and app.user.id == annonce.getUser().getId() %}
+                    <a href="{{ path( 'app_annonce_edit', { id: annonce.id }) }}" class="btn btn-success">
+                      Editer l'annonce
+                    </a>
+                    <a href="{{ path( 'app_annonce_delete', { id: annonce.id }) }}" class="btn btn-danger">
+                      Supprimer l'annonce
+                    </a>
+                  {% else %}
+                    <a href="{{ path( 'app_index', { id: annonce.id }) }}" class="btn btn-primary">
+                      Accéder à l'annonce >
+                    </a>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
