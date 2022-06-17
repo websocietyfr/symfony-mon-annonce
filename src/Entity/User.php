@@ -42,9 +42,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Annonce::class, orphanRemoval: true)]
     private $annonces;
 
+    #[ORM\Column(type: 'boolean')]
+    private $email_display;
+
+    #[ORM\Column(type: 'boolean')]
+    private $phone_display;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->email_display = true;
+        $this->phone_display = true;
     }
 
     public function getId(): ?int
@@ -212,5 +220,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function isEmailDisplay(): ?bool
+    {
+        return $this->email_display;
+    }
+
+    public function setEmailDisplay(bool $email_display): self
+    {
+        $this->email_display = $email_display;
+
+        return $this;
+    }
+
+    public function isPhoneDisplay(): ?bool
+    {
+        return $this->phone_display;
+    }
+
+    public function setPhoneDisplay(bool $phone_display): self
+    {
+        $this->phone_display = $phone_display;
+
+        return $this;
     }
 }

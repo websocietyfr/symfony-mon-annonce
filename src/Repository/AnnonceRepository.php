@@ -39,20 +39,33 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Annonce[] Returns an array of Annonce objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+        * @return Annonce[] Returns an array of Annonce objects
+        */
+    public function findByTitleField($value): array
+    {
+        // VERSION QUERY BUILDER
+        return $this->createQueryBuilder('a')
+            ->andWhere("a.title LIKE :val")
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        // VERSION CREATE QUERY via ENTITY MANAGER
+        // $entityManager = $this->getEntityManager();
+
+        // $query = $entityManager->createQuery(
+        //     'SELECT a
+        //     FROM App\Entity\Annonce a
+        //     WHERE a.title LIKE :value
+        //     ORDER BY a.id DESC'
+        // )->setParameter('value', '%'.$value.'%');
+
+        // // returns an array of Product objects
+        // return $query->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?Annonce
 //    {

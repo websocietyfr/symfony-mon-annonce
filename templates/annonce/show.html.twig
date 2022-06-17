@@ -1,46 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonce{% endblock %}
+{% block title %}Annonce : {{ annonce.title }}{% endblock %}
 
 {% block body %}
-    <h1>Annonce</h1>
+<section class="row">
+    {# <div class="col-12">
+        <h1>{{ annonce.title }}</h1>
+    </div> #}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ annonce.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ annonce.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ annonce.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ annonce.price }}</td>
-            </tr>
-            <tr>
-                <th>Price_type</th>
-                <td>{{ annonce.priceType }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ annonce.picture }}</td>
-            </tr>
-            <tr>
-                <th>Pegi</th>
-                <td>{{ annonce.pegi }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_annonce_index') }}">back to list</a>
-
-    <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">edit</a>
-
-    {{ include('annonce/_delete_form.html.twig') }}
+    <div class="col-xs-12 col-md-6 text-center">
+        <img src="{{ absolute_url(file_public_path ~ annonce.picture) }}" alt="annonce picture" class="w-350 "/>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        <h1>{{ annonce.title }}</h1>
+        <p>
+            {{ annonce.description }}
+        </p>
+        <p>
+            <strong>{{ annonce.price }} € {{ annonce.pricetype|upper }}</strong>
+        </p>
+        {% if annonce.user.emaildisplay or annonce.user.phonedisplay %}
+        <div>
+            <h3>Contacter directement le vendeur</h3>
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ annonce.user.firstname }} {{ annonce.user.lastname }}
+                </h5>
+                <p class="card-text">
+                    {% if annonce.user.emaildisplay %}<strong>Email : </strong>{{ annonce.user.email }}<br />{% endif %}
+                    {% if annonce.user.phonedisplay %}<strong>Numéro de téléphone : </strong>{{ annonce.user.phonenumber }}<br />{% endif %}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-12">
+        <h2>Contacter le vendeur via MonAnnonce.fr</h2>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+</section>
 {% endblock %}

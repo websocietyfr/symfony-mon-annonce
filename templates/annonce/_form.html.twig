@@ -1,4 +1,41 @@
 {{ form_start(form) }}
+    <div class="row">
+        <div class="mb-3">
+            {{ form_row(form.title, {'label': "Titre de l'annonce", 'attr': {
+                'class': 'form-control'
+            }}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.description, {'label': "Description de l'annonce", 'attr': {
+                'class': 'form-control'
+            }}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.price, {'label': "Prix de l'annonce", 'attr': {
+                'class': 'form-control'
+            }}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.price_type, {'label': "Type de prix", 'attr': {
+                'class': 'form-control'
+            }}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.pegi, {'label': "PEGI minimum indiqué sur le jeux", 'attr': {
+                'class': 'form-control'
+            }}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.picture, {'label': "Photo de l'annonce", 'attr': {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="mb-3">
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button> <a href="{{ path('app_user_profile', {id: app.user.id}) }}" class="btn btn-secondary">Retourner à la liste de mes annonces</a> 
+    </div>
 {{ form_end(form) }}
+{% if delete is defined and delete %}
+    {{ include('annonce/_delete_form.html.twig') }}
+{% endif %}

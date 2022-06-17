@@ -21,7 +21,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="..." />
+            <img src="{{ absolute_url(file_public_path ~ user.getProfilPicture()) }}" class="card-img-top w-200 align-self-center" alt="profile picture">
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -29,8 +29,8 @@
                 {{ user.firstname }} {{ user.lastname }}
               </h5>
               <p class="card-text">
-                {{ user.email }}<br />
-                {{ user.phonenumber }}<br />
+                {% if user.emaildisplay %}{{ user.email }}{% endif %}<br />
+                {% if user.phonedisplay %}{{ user.phonenumber }}{% endif %}<br />
               </p>
               <p class="card-text">
                 <small class="text-muted">{{ user.annonces|length }} Annonces</small>
@@ -55,7 +55,7 @@
                   {{ annonce.title }}
                 </h5>
                 <p class="card-text">
-                  {{ annonce.description }}
+                  {{ annonce.description|slice(0, 150) }} [...]
                 </p>
                 <p class="card-text">
                   {% if app.user and app.user.id == annonce.getUser().getId() %}
@@ -66,7 +66,7 @@
                       Supprimer l'annonce
                     </a>
                   {% else %}
-                    <a href="{{ path( 'app_index', { id: annonce.id }) }}" class="btn btn-primary">
+                    <a href="{{ path( 'app_annonce_show', { id: annonce.id }) }}" class="btn btn-primary">
                       Accéder à l'annonce >
                     </a>
                   {% endif %}

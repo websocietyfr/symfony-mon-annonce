@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter - MonAnnonce{% endblock %}
+
+{% block body %}
+<section class="row">
+    <div class="col-12">
+        <h2>Contacter le support de MonAnnonce</h2>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+</section>
+{% endblock %}

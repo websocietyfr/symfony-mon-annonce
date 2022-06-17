@@ -36,6 +36,8 @@ class UserType extends AbstractType
                     ])
                 ]
             ])
+            ->add('email_display')
+            ->add('phone_display')
             ->add('save', SubmitType::class)
         ;
     }

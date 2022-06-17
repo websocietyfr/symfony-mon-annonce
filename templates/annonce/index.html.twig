@@ -1,45 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonce index{% endblock %}
+{% block title %}Les annonces{% endblock %}
 
 {% block body %}
-    <h1>Annonce index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Price_type</th>
-                <th>Picture</th>
-                <th>Pegi</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for annonce in annonces %}
-            <tr>
-                <td>{{ annonce.id }}</td>
-                <td>{{ annonce.title }}</td>
-                <td>{{ annonce.description }}</td>
-                <td>{{ annonce.price }}</td>
-                <td>{{ annonce.priceType }}</td>
-                <td>{{ annonce.picture }}</td>
-                <td>{{ annonce.pegi }}</td>
-                <td>
-                    <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}">show</a>
-                    <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">edit</a>
-                </td>
-            </tr>
+    <section class="row">
+        <div class="col-12">
+            <h1>Les annonces</h1>
+        </div>
+        <div id="search" class="col-12">
+            <form name="search" action="{{ form.vars.action }}" method="{{ form.vars.method }}">
+                {{ form_row(form.title) }}
+                <button class="btn btn-success">Rechercher</button>
+            </form>
+        </div>
+        {% for annonce in annonces|reverse %}
+            <div class="col-xs-12 col-md-4">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ absolute_url(file_public_path ~ annonce.getPicture()) }}" class="card-img-top w-200 align-self-center" alt="annonce picture">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ annonce.title }}
+                                </h5>
+                                <p class="card-text">
+                                    {{ annonce.description|slice(0,150) }}[...]
+                                </p>
+                                <p>
+                                    <a href="{{ path('app_annonce_show', { id: annonce.id }) }}" class="btn btn-info">Accéder à l'annonce</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+            <p class="alert alert-info">Il n'y a pas de d'annonces disponibles</p>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_annonce_new') }}">Create new</a>
+    </section>
 {% endblock %}

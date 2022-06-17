@@ -8,6 +8,8 @@ use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -19,7 +21,12 @@ class AnnonceType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('price')
+            ->add('price', NumberType::class, [
+                'html5' => true,
+                'attr' => [
+                    'step' => '.01'
+                ]
+            ])
             ->add('price_type', ChoiceType::class, [
                 'choices' => [
                     "Prix TTC" => 'ttc',
@@ -27,8 +34,9 @@ class AnnonceType extends AbstractType
                 ]
             ])
             ->add('picture', FileType::class, [
+                'data_class' => null,
                 'label' => 'Photo du produit',
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '2048k',

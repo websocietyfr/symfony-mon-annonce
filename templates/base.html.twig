@@ -8,6 +8,7 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {# the CSS file lives at "public/css/blog.css" #}
         <link href="{{ absolute_url('/assets/bootstrap-5.2.0/css/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ absolute_url('/assets/css/monannonce.css') }}" rel="stylesheet"/>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -29,6 +30,7 @@
                         {% else %}
                             <li><a href="{{ path('app_annonce_index') }}" class="nav-link px-2 link-dark">Toutes les annonces</a></li>
                         {% endif %}
+                        <li><a href="{{ path('app_contact') }}" class="nav-link px-2 link-dark">Nous contacter</a></li>
                     </ul>
 
                     <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -49,6 +51,7 @@
                             </ul>
                         </div> #}
                         <a href="{{ path('app_user_show') }}" class="nav-link px-2 link-dark">Mon compte</a>
+                        <a href="{{ path('app_logout') }}" class="nav-link px-2 link-dark">Deconnexion</a>
                     {% else %}
                         <a href="{{ path('app_login') }}" class="nav-link px-2 link-dark">Me connecter</a>
                     {% endif %}

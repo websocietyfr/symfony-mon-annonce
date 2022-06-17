@@ -1,46 +1,69 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="row">
-        {# {{ form_widget(form) }} #}
-        <form action="{{ form.vars.action }}" method="{{ form.vars.method }}" enctype="multipart/form-data">
-            <div class="my-custom-class-for-errors">
-                {{ form_errors(form) }}
-            </div>
+    <section>
+        <form action="{{ form.vars.action }}" method="{{ form.vars.method }}" class="row" enctype="multipart/form-data">
+            <div class="col-xs-12 col-md-6">
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
+                </div>
 
-            <div class="row mb-3">
-                <div class="mb-3">
-                    {{ form_row(form.firstname, {
-                        'label': 'Prénom:',
-                        'attr': {'class': 'form-control'}
-                    }) }}
+                <div class="row mb-3">
+                    <div class="mb-3">
+                        {{ form_row(form.firstname, {
+                            'label': 'Prénom:',
+                            'attr': {'class': 'form-control'}
+                        }) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.lastname, 'Nom:', {'attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.email, {
+                            'label': 'Email:',
+                            'attr': {'class': 'form-control'}
+                        }) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.phone_number, {
+                            'label': 'Numéro de téléphone:',
+                            'attr': {'class': 'form-control'}
+                        }) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.profil_picture, {
+                            'label': 'Photo de profil:',
+                            'attr': {'class': 'form-control'}
+                        }) }}
+                    </div>
+                    {{ form_widget(form._token) }}
                 </div>
-                <div class="mb-3">
-                    {{ form_label(form.lastname, 'Nom:', {'attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(form.email, {
-                        'label': 'Email:',
-                        'attr': {'class': 'form-control'}
-                    }) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(form.phone_number, {
-                        'label': 'Numéro de téléphone:',
-                        'attr': {'class': 'form-control'}
-                    }) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(form.profil_picture, {
-                        'label': 'Photo de profil:',
-                        'attr': {'class': 'form-control'}
-                    }) }}
-                </div>
-                {{ form_widget(form._token) }}
-            </div>
 
-            <button class="btn btn-success">Enregistrer les modifications</button>
+                <button class="btn btn-success">Enregistrer toutes les modifications</button>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="card">
+                    <img src="{{ absolute_url(file_public_path ~ user.getProfilPicture()) }}" class="card-img-top w-200 align-self-center" alt="profile picture">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.firstname }} {{ user.lastname }}</h5>
+                        <div class="card-text">
+                            <div class="form-check mb-3">
+                                {{ form_row(form.email_display, {
+                                    'label': 'Souhaitez-vous rendre public votre adresse mail ?',
+                                    'attr': {'class': 'form-check-input'}
+                                }) }}
+                            </div>
+                            <div class="form-check mb-3">
+                                {{ form_row(form.phone_display, {
+                                    'label': 'Souhaitez-vous rendre public votre numéro de téléphone ?',
+                                    'attr': {'class': 'form-check-input'}
+                                }) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </section>
 {% endblock %}

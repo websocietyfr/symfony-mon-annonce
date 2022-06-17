@@ -19,26 +19,26 @@
             <div class="col-xs-12 col-md-4">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="..." class="img-fluid rounded-start" alt="..." />
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                        <h5 class="card-title">
-                            {{ user.firstname }} {{ user.lastname }}
-                        </h5>
-                        <p class="card-text">
-                            {{ user.email }}<br />
-                            {{ user.phonenumber }}<br />
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">{{ user.annonces|length }} Annonces</small>
-                        </p>
-                        <p>
-                            <a href="{{ path('app_user_profile', { id: user.id }) }}" class="btn btn-info">Accéder au profil</a>
-                        </p>
+                        <div class="col-md-4">
+                            <img src="{{ absolute_url(file_public_path ~ user.getProfilPicture()) }}" class="card-img-top w-200 align-self-center" alt="profile picture">
                         </div>
-                    </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ user.firstname }} {{ user.lastname }}
+                                </h5>
+                                <p class="card-text">
+                                    {% if user.emaildisplay %}{{ user.email }}{% endif %}<br />
+                                    {% if user.phonedisplay %}{{ user.phonenumber }}{% endif %}<br />
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">{{ user.annonces|length }} Annonces</small>
+                                </p>
+                                <p>
+                                    <a href="{{ path('app_user_profile', { id: user.id }) }}" class="btn btn-info">Accéder au profil</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
