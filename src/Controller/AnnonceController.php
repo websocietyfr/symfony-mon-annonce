@@ -46,7 +46,9 @@ class AnnonceController extends AbstractController
     #[Route('/admin/annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnnonceRepository $annonceRepository, UploadFileService $uploadService): Response
     {
+        // initialisation de l'objet Annonce => donc création d'une ligne vierge en BDD (non-enregistrée à ce stade)
         $annonce = new Annonce();
+        // Construire un formulaire à partir du type de formulaire "AnnonceType"
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
